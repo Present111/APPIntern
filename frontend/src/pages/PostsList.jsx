@@ -1,28 +1,53 @@
 import { useEffect, useState } from "react";
-import api from "../api/axios";
 import { Link } from "react-router-dom";
+import api from "../api/axios";
 
 export default function PostsList() {
-  const [data, setData] = useState([]);
+  const [posts, setPosts] = useState([]);
+
+  const loadPosts = async () => {
+    try {
+      const res = await api.get("/posts"); // GET /api/posts
+      setPosts(res.data);
+    } catch (e) {
+      console.error("Load posts error:", e);
+    }
+  };
 
   useEffect(() => {
-    (async () => {
-      const res = await api.get("/posts");
-      setData(res.data.content ?? []);
-    })();
+    loadPosts();
   }, []);
 
+  const handleDelete = async (id) => {
+    if (window.confirm("Xóa bài viết này?")) {
+      try {
+        await api.delete(`/posts/${id}`); // DELETE /api/posts/{id}
+        loadPosts();
+      } catch (e) {
+        console.error("Delete error:", e);
+      }
+    }
+  };
+
   return (
-    <div style={{ maxWidth: 720, margin: "40px auto" }}>
-      <h2>Bài viết của tôi</h2>
-      <Link to="/new">+ Tạo bài</Link>
+    <div style={{ maxWidth: 600, margin: "30px auto" }}>
+      <h2>Danh sách bài viết</h2>
+      <Link to="/posts/new">
+        <button>+ Tạo bài viết</button>
+      </Link>
       <ul>
-        {data.map((p) => (
-          <li key={p.id}>
-            <b>{p.title}</b> — {new Date(p.createdAt).toLocaleString()} —
-            <Link to={`/edit/${p.id}`}> Sửa</Link>
-          </li>
-        ))}
+        {posts.length > 0 ? (
+          posts.map((p) => (
+            <li key={p.id}>
+              <h3>{p.title}</h3>
+              <p>{p.content}</p>
+              <Link to={`/posts/${p.id}/edit`}>✏️ Sửa</Link>
+              <button onClick={() => handleDelete(p.id)}>🗑️ Xoá</button>
+            </li>
+          ))
+        ) : (
+          <p>Chưa có bài viết nào.</p>
+        )}
       </ul>
     </div>
   );
