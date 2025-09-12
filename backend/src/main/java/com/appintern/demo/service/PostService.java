@@ -30,10 +30,22 @@ public class PostService {
         if (auth == null || auth.getPrincipal() == null) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "No auth");
         }
-        String username = auth.getPrincipal().toString();
+
+        Object principal = auth.getPrincipal();
+        String username;
+
+        if (principal instanceof org.springframework.security.core.userdetails.UserDetails ud) {
+            username = ud.getUsername();
+        } else if (principal instanceof String s) { // trường hợp "anonymousUser"
+            username = s;
+        } else {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid principal");
+        }
+
         return userRepo.findByUsername(username)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found"));
     }
+
 
     public PostResponse create(PostRequest req) {
         User author = currentUser();

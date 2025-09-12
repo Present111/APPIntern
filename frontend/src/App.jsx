@@ -1,8 +1,8 @@
 import { Routes, Route, useLocation } from "react-router-dom";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import PostsList from "./pages/PostsList";
-import PostForm from "./pages/PostForm";
+import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
+import PostsList from "./pages/PostList/PostsList";
+import PostForm from "./pages/PostForm/PostForm";
 import PrivateRoute from "./conponents/PrivateRoute";
 import LogoutButton from "./conponents/LogoutButton";
 

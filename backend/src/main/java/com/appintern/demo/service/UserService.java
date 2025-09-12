@@ -22,7 +22,7 @@ public class UserService {
         User u = User.builder()
                 .username(username)
                 .password(encoder.encode(rawPassword))
-                .role("ROLE_USER")
+                .role("USER")
                 .build();
         return userRepo.save(u);
     }

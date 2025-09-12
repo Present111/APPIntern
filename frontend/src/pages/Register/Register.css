@@ -1,0 +1,17 @@
+/* Dùng lại toàn bộ style của login */
+@import "../Login/Login.css";
+
+/* (tuỳ chọn) khác biệt nhỏ cho Register nếu muốn) */
+/* .logo { background: linear-gradient(135deg, #4f46e5, #10b981); } */
+/* .submit { box-shadow: 0 12px 20px rgba(16,185,129,.22); } */
+
+.alert.ok {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+.alert.err {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}

@@ -1,0 +1,80 @@
+/* Tái dùng phong cách của login để đồng bộ */
+@import "../Login/Login.css";
+
+/* Card rộng hơn một chút cho form soạn thảo */
+.card.wide {
+  width: min(820px, 100%);
+}
+
+/* Textarea đẹp như input */
+textarea {
+  width: 100%;
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  font-size: 14px;
+  outline: none;
+  resize: vertical;
+  transition: box-shadow 0.2s, border-color 0.2s, transform 0.05s;
+}
+textarea:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+}
+
+/* Hàng nút dưới cùng */
+.actions-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+/* Reuse button styles từ posts.css/login.css */
+.btn {
+  height: 44px;
+  padding: 0 16px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  color: #0f172a;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform 0.05s, filter 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+.btn:hover {
+  background: #f8fafc;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-ghost {
+  background: #f8fafc;
+}
+.btn-primary {
+  border: 0;
+  color: #fff;
+  background: linear-gradient(135deg, #6366f1, #22c55e);
+  box-shadow: 0 12px 18px rgba(99, 102, 241, 0.22);
+}
+.btn-primary:hover {
+  filter: brightness(1.03);
+}
+
+/* Thông báo */
+.alert.ok {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+  padding: 10px 12px;
+  border-radius: 12px;
+}
+.alert.err {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+  padding: 10px 12px;
+  border-radius: 12px;
+}

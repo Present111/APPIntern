@@ -23,12 +23,26 @@ public class Post {
     @JoinColumn(name = "author_id")
     private User author;
 
-    @Column(nullable = false, updatable = false)
+    // ✅ Builder sẽ giữ giá trị mặc định
+    @Builder.Default
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt = Instant.now();
 
-    @Column(nullable = false)
+    @Builder.Default
+    @Column(name = "updated_at", nullable = false)
     private Instant updatedAt = Instant.now();
 
+    // ✅ Set khi insert (phòng trường hợp builder gán null)
+    @PrePersist
+    public void onCreate() {
+        Instant now = Instant.now();
+        if (createdAt == null) createdAt = now;
+        if (updatedAt == null) updatedAt = now;
+    }
+
+    // ✅ Cập nhật mỗi lần update
     @PreUpdate
-    public void onUpdate() { this.updatedAt = Instant.now(); }
+    public void onUpdate() {
+        this.updatedAt = Instant.now();
+    }
 }
