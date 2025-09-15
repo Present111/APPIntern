@@ -2,7 +2,7 @@ import { useState } from "react";
 import api from "../../api/axios";
 import { useAuth } from "../../store/auth";
 import { useNavigate, Link } from "react-router-dom";
-import "../Login/login.css"; // dùng chung style
+import "./Login.css"; // dùng chung style
 
 export default function Login() {
   const [username, setUsername] = useState("");
