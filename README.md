@@ -107,12 +107,14 @@ Terminal
 Linux / macOS
 
 cd backend
+
 ./mvnw spring-boot:run
 
 
 Windows
 
 cd backend
+
 mvnw.cmd spring-boot:run
 
 IntelliJ IDEA
@@ -125,7 +127,9 @@ Mặc định chạy tại http://localhost:8080
 
 2) Chạy Frontend (Vite + React)
 cd frontend
+
 npm install
+
 npm run dev
 
 
@@ -150,5 +154,6 @@ Backend: IntelliJ IDEA
 Frontend: VS Code
 
 Database: MySQL Workbench
+
 
 
