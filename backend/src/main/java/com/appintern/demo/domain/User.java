@@ -8,7 +8,8 @@ import lombok.*;
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class User {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, length = 50, unique = true)
@@ -17,7 +18,16 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    // đơn giản 1 role
-    @Column(nullable = false)
+    // luôn có default khi dùng Lombok Builder
+    @Builder.Default
+    @Column(nullable = false, length = 32)
     private String role = "ROLE_USER";
+
+    // lớp bảo hiểm: nếu ai đó set null, trước khi insert sẽ tự fix
+    @PrePersist
+    void ensureRole() {
+        if (role == null || role.isBlank()) {
+            role = "ROLE_USER";
+        }
+    }
 }

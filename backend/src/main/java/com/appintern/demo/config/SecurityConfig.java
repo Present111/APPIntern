@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -47,38 +48,35 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
-                .cors(cors -> {}) // nếu có CorsConfig riêng thì để trống như vậy là OK
+                .cors(Customizer.withDefaults())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        // 👉 ĐỂ TRƯỚC HẾT
                         .requestMatchers(
-                                "/v3/api-docs/**",
-                                "/swagger-ui/**",
+                                "/api/auth/**",
                                 "/swagger-ui.html",
-                                "/api/auth/**"            // login/register không cần xác thực
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/v3/api-docs.yaml",
+                                "/actuator/**",
+                                "/", "/error"
                         ).permitAll()
-                        .requestMatchers("/api/posts/**").hasRole("USER") // yêu cầu ROLE_USER
+
+                        // Ví dụ nếu có API public khác (GET posts) thì cho phép ở đây
+                        //.requestMatchers(HttpMethod.GET, "/api/posts/**").permitAll()
+
+                        // 👉 Các rule còn lại
                         .anyRequest().authenticated()
                 )
-                .exceptionHandling(e -> e
-                        .authenticationEntryPoint((req, res, ex) -> {
-                            res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                            res.setContentType("application/json");
-                            res.getWriter().write("{\"error\":\"UNAUTHORIZED\"}");
-                        })
-                        .accessDeniedHandler((req, res, ex) -> {
-                            res.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                            res.setContentType("application/json");
-                            res.getWriter().write("{\"error\":\"FORBIDDEN\"}");
-                        })
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint((req, res, e) -> res.setStatus(HttpServletResponse.SC_UNAUTHORIZED))
                 )
-                // ĐĂNG KÝ provider vào HttpSecurity cho chắc
-                .authenticationProvider(authenticationProvider())
-                // JWT filter chạy trước Username/Password filter
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
+
 }
