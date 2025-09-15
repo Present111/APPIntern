@@ -90,5 +90,65 @@ UNLOCK TABLES;
 
 -- Dump completed on 2025-09-12 17:10:53
 
-Tool: MySql Workbench
+🚀 Hướng dẫn chạy dự án
+0) Yêu cầu môi trường
+
+JDK 17+
+
+Node.js 18+ (hoặc mới hơn)
+
+MySQL 8.0+
+
+Công cụ gợi ý: IntelliJ IDEA (BE), VS Code (FE), MySQL Workbench (Database)
+
+1) Chạy Backend (Spring Boot)
+Terminal
+
+Linux / macOS
+
+cd backend
+./mvnw spring-boot:run
+
+
+Windows
+
+cd backend
+mvnw.cmd spring-boot:run
+
+IntelliJ IDEA
+
+Mở thư mục backend dưới dạng Maven Project
+
+Nhấn nút Run ▶️ trong IntelliJ hoặc chạy từ Maven Tool Window
+
+Mặc định chạy tại http://localhost:8080
+
+2) Chạy Frontend (Vite + React)
+cd frontend
+npm install
+npm run dev
+
+
+Mặc định chạy tại http://localhost:5173
+
+Đổi sang port 3000:
+
+npm run dev -- --port 3000
+
+3) Kiểm tra
+
+Mở trình duyệt tại FE URL (5173 hoặc 3000)
+
+FE sẽ gọi BE tại http://localhost:8080 (theo cấu hình .env)
+
+Đăng nhập hoặc tạo bài viết để test luồng end-to-end
+
+4) Công cụ gợi ý
+
+Backend: IntelliJ IDEA
+
+Frontend: VS Code
+
+Database: MySQL Workbench
+
 
