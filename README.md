@@ -119,9 +119,7 @@ mvnw.cmd spring-boot:run
 
 IntelliJ IDEA
 
-Mở thư mục backend dưới dạng Maven Project
-
-Nhấn nút Run ▶️ trong IntelliJ hoặc chạy từ Maven Tool Window
+Mở chạy trong terminal
 
 Mặc định chạy tại http://localhost:8080
 
@@ -131,13 +129,6 @@ cd frontend
 npm install
 
 npm run dev
-
-
-Mặc định chạy tại http://localhost:5173
-
-Đổi sang port 3000:
-
-npm run dev -- --port 3000
 
 3) Kiểm tra
 
@@ -154,6 +145,7 @@ Backend: IntelliJ IDEA
 Frontend: VS Code
 
 Database: MySQL Workbench
+
 
 
 
