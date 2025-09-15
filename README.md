@@ -144,7 +144,8 @@ Backend: IntelliJ IDEA
 
 Frontend: VS Code
 
-Database: MySQL Workbench
+Database: DB Eaver
+
 
 
 
