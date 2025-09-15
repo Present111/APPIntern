@@ -1,7 +1,7 @@
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../../api/axios";
-import "./Postform.css";
+import "./PostForm.css";
 
 export default function PostForm() {
   const { id } = useParams();

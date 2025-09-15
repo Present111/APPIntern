@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../../api/axios";
-import "./Posts.css";
+import "./PostsList.css";
 
 export default function PostsList() {
   const [posts, setPosts] = useState([]);
